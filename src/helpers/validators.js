@@ -1,16 +1,26 @@
+import { allPass } from 'ramda';
 import { COLORS, SHAPES } from '../constants';
 
 const { STAR, SQUARE, TRIANGLE, CIRCLE } = SHAPES;
 const { RED, BLUE, ORANGE, GREEN, WHITE } = COLORS;
 
-// 1. Красная звезда, зеленый квадрат, все остальные белые.
-export const validateFieldN1 = ({star, square, triangle, circle}) => {
-    if (triangle !== 'white' || circle !== 'white') {
-        return false;
-    }
+//figures
+const getStar = prop(STAR);
+const getTriangle = prop(TRIANGLE);
+const getSquare = prop(SQUARE);
+const getCircle = prop(CIRCLE);
 
-    return star === 'red' && square === 'green';
-};
+//colors
+const isRed = equals(RED);
+const isWhite = equals(WHITE);
+const isGreen = equals(GREEN);
+const isOrange = equals(ORANGE);
+const isBlue = equals(BLUE);
+
+
+
+// 1. Красная звезда, зеленый квадрат, все остальные белые.
+export const validateFieldN1 = allPass([isRedStar, isGreenSquare, isWhiteTriangle, isWhiteCircle]);
 
 // 2. Как минимум две фигуры зеленые.
 export const validateFieldN2 = () => false;
