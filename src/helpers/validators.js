@@ -1,4 +1,4 @@
-import { allPass } from 'ramda';
+import { allPass, compose, gte, equals, prop, countBy, identity, values, __ } from 'ramda';
 import { COLORS, SHAPES } from '../constants';
 
 const { STAR, SQUARE, TRIANGLE, CIRCLE } = SHAPES;
@@ -16,6 +16,21 @@ const isWhite = equals(WHITE);
 const isGreen = equals(GREEN);
 const isOrange = equals(ORANGE);
 const isBlue = equals(BLUE);
+const getGreen = prop(GREEN);
+
+
+const isRedStar = compose(isRed, getStar);
+const isGreenSquare = compose(isGreen, getSquare);
+const isWhiteTriangle = compose(isWhite, getTriangle);
+const isWhiteCircle = compose(isWhite, getCircle);
+
+
+const numberOfColors = compose(countBy(identity), values);
+
+const greaterOrEqualsThenTwo = gte(__, 2);
+
+
+const numberOfGreenColors = compose(getGreen,numberOfColors)
 
 
 
@@ -23,7 +38,7 @@ const isBlue = equals(BLUE);
 export const validateFieldN1 = allPass([isRedStar, isGreenSquare, isWhiteTriangle, isWhiteCircle]);
 
 // 2. Как минимум две фигуры зеленые.
-export const validateFieldN2 = () => false;
+export const validateFieldN2 = compose(greaterOrEqualsThenTwo, numberOfGreenColors);
 
 // 3. Количество красных фигур равно кол-ву синих.
 export const validateFieldN3 = () => false;
