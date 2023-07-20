@@ -1,4 +1,4 @@
-import { allPass, compose, gte, equals, prop, complement, propEq, dissoc, countBy, identity, values, __, dissoc } from 'ramda';
+import { allPass, compose, gte, equals, prop, complement, propEq, countBy, identity, values, __, dissoc } from 'ramda';
 import { COLORS, SHAPES } from '../constants';
 
 const { STAR, SQUARE, TRIANGLE, CIRCLE } = SHAPES;
@@ -80,7 +80,7 @@ export const validateFieldN6 = allPass([isGreenTriangle, twoGreenColors, oneRedC
 export const validateFieldN7 = allHasColor(ORANGE);
 
 // 8. Не красная и не белая звезда, остальные – любого цвета.
-export const validateFieldN8 = allPass([isNotRedStar, isNotWhiteStar]);
+export const validateFieldN8 = ({ star }) => !['red', 'white'].includes(star);
 
 // 9. Все фигуры зеленые.
 export const validateFieldN9 = allHasColor(GREEN)
